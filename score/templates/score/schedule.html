@@ -1,0 +1,19 @@
+{% extends "score/wrapper.html" %}
+
+{% block content %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    {% load staticfiles %}
+
+    {% if massage != "" %}
+        <script type="text/javascript">
+            alert({{ massage }});
+        </script>
+        <p>{{ massage }}</p>
+    {% endif %}
+    {% if massage == "" %}
+        <img src={% static 'score/images/schedule.png' %}>
+    {% endif %}
+
+{% endblock %}

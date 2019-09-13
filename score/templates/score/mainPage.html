@@ -1,0 +1,187 @@
+{% extends "score/wrapper.html" %}
+
+
+{% block content %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <button id="button" onclick="doSomething()">Filter</button>
+    <button id="schedule_button" onclick="doSchedule()">Schedule</button>
+        <table id="my_table" width="100%" border="1" bgcolor="#dcdcdc">
+        <thead >
+        <tr role="row">
+            <th rowspan="1" colspan="1"  style="width: 164px;">№</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">WTA</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Location
+                <select id="location" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in location %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Tournament
+                <select id="tournament" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in tournament %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Date
+            <select id="date" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in date %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Tier
+            <select id="tier" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in tier %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Court</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Surface</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Round</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Best_of</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Winner
+            <select id="winner" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in winner %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Loser
+                <select id="loser" onchange="Table.filter(this,this)">
+                <br>
+                <option value>Все</option>
+                {% for el in loser %}
+                    {% for row in el %}
+                        <option>{{ row }}</option>
+                    {% endfor %}
+                {% endfor %}
+                <br>
+            </select>
+            </th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">WRank</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">LRank</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">WPts</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">LPts</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">W1</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">L1</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">W2</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">L2</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">W3</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">L3</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Wsets</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Lsets</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">Comment</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">B365W</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">B365L</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">EXW</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">EXL</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">LBW</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">LBL</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">PSW</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">PSL</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">MaxW</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">MaxL</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">AvgW</th>
+            <th rowspan="1" colspan="1"  style="width: 164px;">AvgL</th>
+        </tr>
+        </thead>
+        <tbody>
+
+    {% for row in rows %}
+        {% for el in row %}
+            <tr class="score_table">
+                                <td >{{ el.0 }}</td>
+                                <td >{{ el.1 }}</td>
+                                <td >{{ el.2 }}</td>
+                                <td >{{ el.3 }}</td>
+                                <td >{{ el.4 }}</td>
+                                <td >{{ el.5 }}</td>
+                                <td >{{ el.6 }}</td>
+                                <td >{{ el.7 }}</td>
+                                <td >{{ el.8 }}</td>
+                                <td >{{ el.9 }}</td>
+                                <td >{{ el.10 }}</td>
+                                <td >{{ el.11 }}</td>
+                                <td >{{ el.12 }}</td>
+                                <td >{{ el.13 }}</td>
+                                <td >{{ el.14 }}</td>
+                                <td >{{ el.15 }}</td>
+                                <td >{{ el.16 }}</td>
+                                <td >{{ el.17 }}</td>
+                                <td >{{ el.18 }}</td>
+                                <td >{{ el.19 }}</td>
+                                <td >{{ el.20 }}</td>
+                                <td >{{ el.21 }}</td>
+                                <td >{{ el.22 }}</td>
+                                <td >{{ el.23 }}</td>
+                                <td >{{ el.24 }}</td>
+                                <td >{{ el.25 }}</td>
+                                <td >{{ el.26 }}</td>
+                                <td >{{ el.27 }}</td>
+                                <td >{{ el.28 }}</td>
+                                <td >{{ el.29 }}</td>
+                                <td >{{ el.30 }}</td>
+                                <td >{{ el.31 }}</td>
+                                <td >{{ el.32 }}</td>
+                                <td >{{ el.33 }}</td>
+                                <td >{{ el.34 }}</td>
+                                <td >{{ el.35 }}</td>
+                                <td >{{ el.36 }}</td>
+                            </tr>
+        {% endfor %}
+    {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function doSomething() {
+            var txt_location = $("#location option:selected").text();
+            var txt_tournament = $("#tournament option:selected").text();
+            var txt_date = $("#date option:selected").text();
+            var txt_tier = $("#tier option:selected").text();
+            var txt_winner = $("#winner option:selected").text();
+            var txt_loser = $("#loser option:selected").text();
+            window.location.replace("http://127.0.0.1:8000/filter/?location="+txt_location+"&tournament="+txt_tournament+"&date="+txt_date+"&tier="+txt_tier+"&winner="+txt_winner+"&loser="+txt_loser);
+        }
+
+        function doSchedule() {
+            var txt_winner = $("#winner option:selected").text();
+            var txt_loser = $("#loser option:selected").text()
+            if (txt_winner == "Все" && txt_loser == "Все"){
+                alert("Player not selected. Please select one or two players");
+            }
+            else {
+                window.open("http://127.0.0.1:8000/schedule/?winner="+txt_winner+"&loser="+txt_loser);
+            }
+        }
+    </script>
+{% endblock %}
